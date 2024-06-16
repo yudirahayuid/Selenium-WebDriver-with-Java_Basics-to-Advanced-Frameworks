@@ -4,24 +4,23 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import rahulshettyacademy.TestComponents.BaseTest;
+import rahulshettyacademy.TestComponents.Retry;
 import rahulshettyacademy.pageobjects.CartPage;
 import rahulshettyacademy.pageobjects.ProductCatalogue;
 
-import java.io.IOException;
 import java.util.List;
 
 public class ErrorValidationsTest extends BaseTest {
 
-    @Test(groups = {"ErrorHandling"})
-    public void LoginErrorValidation() throws InterruptedException, IOException {
+    @Test(groups = {"ErrorHandling"},retryAnalyzer = Retry.class)
+    public void LoginErrorValidation() {
 
-        String productName = "ZARA COAT 3";
         landingPage.loginApplication("yudirahayu321@gmail.com", "Okt0ber8");
-        Assert.assertEquals("Incorrect email or password.", landingPage.getErrorMessage());
+        Assert.assertEquals("Incorrect email password.", landingPage.getErrorMessage());
     }
 
     @Test
-    public void ProductErrorValidation() throws InterruptedException, IOException {
+    public void ProductErrorValidation() throws InterruptedException {
 
         String productName = "ZARA COAT 3";
         ProductCatalogue productCatalogue = landingPage.loginApplication("yudirahayu321@gmail.com", "Okt0ber8@");
@@ -31,5 +30,4 @@ public class ErrorValidationsTest extends BaseTest {
         Boolean match = cartPage.VerifyProductDisplay("ZARA COAT 33");
         Assert.assertFalse(match);
     }
-    
 }
